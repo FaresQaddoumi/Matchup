@@ -2,7 +2,8 @@
 print("Starting app.py") # DEBUG line to confirm this file is being run
 from flask import Flask, jsonify # import Flask and jsonify
 from db import get_db, close_db, init_db   # DB helpers
-from teams import teams_bp                 
+from teams import teams_bp
+from matches import matches_bp                 
 
 app = Flask(__name__) # create the Flask app instance 
 
@@ -36,6 +37,9 @@ def handle_error(err):
     code = getattr(err, "code", 500)
     msg = getattr(err, "description", str(err))
     return jsonify({"error": msg, "status": code}), code
+
+app.register_blueprint(matches_bp) # register matches blueprint
+
 
 if __name__ == "__main__":
     from db import init_db, DB_PATH  #initialize DB and run app if this file is run directly
