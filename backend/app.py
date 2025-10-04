@@ -2,11 +2,11 @@
 print("Starting app.py") # debug
 
 from flask import Flask, jsonify
-from db import get_db, close_db, init_db
-from teams import teams_bp
-from matches import matches_bp
-from leaderboard import leaderboard_bp
-from auth import auth_bp
+from backend.db import get_db, close_db, init_db
+from backend.teams import teams_bp
+from backend.matches import matches_bp
+from backend.leaderboard import leaderboard_bp
+from backend.auth import auth_bp
 
 app = Flask(__name__)
 from flask_cors import CORS
@@ -53,7 +53,7 @@ app.register_blueprint(leaderboard_bp)
 
 
 if __name__ == "__main__":
-    from db import init_db, DB_PATH
+    from backend.db import init_db, DB_PATH
     init_db()
     print("db at:", DB_PATH)
     app.run(debug=True)

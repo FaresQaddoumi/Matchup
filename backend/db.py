@@ -5,7 +5,7 @@ from flask import g
 from dotenv import load_dotenv # load environment variables
 
 load_dotenv()
-# Always use absolute path for DB file, based on this file's directory
+# Always uses absolute path for DB file, based on this file's directory
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.getenv("DATABASE", os.path.join(BASE_DIR, "matchup.db"))
 

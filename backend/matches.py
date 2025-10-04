@@ -1,10 +1,12 @@
 
 from flask import Blueprint, request, jsonify
 from sqlite3 import IntegrityError
-from db import query_all, query_one, execute
+from backend.db import query_all, query_one, execute
 from datetime import datetime
 
 matches_bp = Blueprint("matches", __name__, url_prefix="/matches")
+
+# Parsing ISO dates with different formats
 
 def parse_iso_when_present(value):
     if not value:
@@ -47,7 +49,7 @@ def single_match_by_id(match_id):
         (match_id,),
     )
 
-# --- routes ---
+# Create a new match
 
 
 @matches_bp.post("")

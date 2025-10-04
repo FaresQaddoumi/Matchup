@@ -1,15 +1,15 @@
 
 
 from flask import Blueprint, jsonify
-from db import query_all
+from backend.db import query_all
 
 
 leaderboard_bp = Blueprint("leaderboard", __name__, url_prefix="/leaderboard")
 
 @leaderboard_bp.get("")
 def leaderboard():
-    # Ok, let's try to build a leaderboard from finished matches.
-    # Win = 3, Draw = 1, Loss = 0. Tiebreakers: points, goal diff, goals for, name.
+    
+    # Win = 3, Draw = 1, Loss = 0. Tiebreakers: points, goal diff, goals for, and the name
     rows = query_all(
         """
         SELECT m.id,
@@ -23,10 +23,10 @@ def leaderboard():
         """
     )
 
-    stats = {}  # we'll just keep stuff here
+    stats = {}  # Team stats
 
     def ensure(team_id, name):
-        # make sure team is in stats
+        
         if team_id not in stats:
             stats[team_id] = {
                 "team_id": team_id,
@@ -48,12 +48,12 @@ def leaderboard():
         a = ensure(r["away_team_id"], r["away_name"])
         hs, as_ = int(r["home_score"]), int(r["away_score"])
 
-        # update stats for both teams
+        # updates stats for both teams
         h["played"] += 1; a["played"] += 1
         h["goals_for"] += hs; h["goals_against"] += as_
         a["goals_for"] += as_; a["goals_against"] += hs
 
-        # who won?
+        
         if hs > as_:
             h["wins"] += 1; a["losses"] += 1
             h["points"] += 3
@@ -64,11 +64,10 @@ def leaderboard():
             h["draws"] += 1; a["draws"] += 1
             h["points"] += 1; a["points"] += 1
 
-    # calc goal diff
+    #goal diff
     for t in stats.values():
         t["goal_diff"] = t["goals_for"] - t["goals_against"]
 
-    # sort the table, classic style
     table = sorted(
         stats.values(),
         key=lambda t: (-t["points"], -t["goal_diff"], -t["goals_for"], t["team"].lower())

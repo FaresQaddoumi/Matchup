@@ -1,7 +1,7 @@
 
 from flask import Blueprint, request, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
-from db import query_one, execute, query_all
+from backend.db import query_one, execute, query_all
 import secrets
 
 auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
