@@ -9,6 +9,9 @@ from leaderboard import leaderboard_bp
 from auth import auth_bp
 
 app = Flask(__name__)
+from flask_cors import CORS
+CORS(app)  
+
 
 
 @app.before_request
