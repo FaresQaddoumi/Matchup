@@ -27,8 +27,17 @@ CREATE TABLE IF NOT EXISTS matches (
   CHECK (home_team_id <> away_team_id)
 );
 
--- Helpful indexes
+
 CREATE INDEX IF NOT EXISTS idx_teams_name ON teams(name);
 CREATE INDEX IF NOT EXISTS idx_matches_home_team_id ON matches(home_team_id);
 CREATE INDEX IF NOT EXISTS idx_matches_away_team_id ON matches(away_team_id);
+
+-- Table to store user sessions for authentication
+CREATE TABLE IF NOT EXISTS sessions (
+  id TEXT PRIMARY KEY,                 
+  user_id INTEGER NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
 

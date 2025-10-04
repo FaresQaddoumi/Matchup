@@ -1,34 +1,36 @@
 
-print("Starting app.py") # DEBUG line to confirm this file is being run
-from flask import Flask, jsonify # import Flask and jsonify
-from db import get_db, close_db, init_db   # DB helpers
+print("Starting app.py") # debug
+
+from flask import Flask, jsonify
+from db import get_db, close_db, init_db
 from teams import teams_bp
-from matches import matches_bp                 
+from matches import matches_bp
+from leaderboard import leaderboard_bp
+from auth import auth_bp
 
-app = Flask(__name__) # create the Flask app instance 
+app = Flask(__name__)
 
-# DB connection per request
-@app.before_request  
-def _open_db(): 
-    get_db()
 
-@app.teardown_appcontext # close DB connection after request
+@app.before_request
+def _open_db():
+    get_db()  # open db
+
+
+@app.teardown_appcontext
 def _close_db(exception):
-    close_db()
+    close_db()  # close db
 
-# Tests
+
 @app.route("/")
 def home():
     return "Matchup backend is running :)"
 
-@app.get("/ping") 
+
+@app.get("/ping")
 def ping():
-    return jsonify({"ok": True}) 
+    return jsonify({"ok": True})
 
-# register features
-app.register_blueprint(teams_bp)  #teams CRUD
 
-# Json errors
 @app.errorhandler(400)
 @app.errorhandler(404)
 @app.errorhandler(409)
@@ -38,13 +40,19 @@ def handle_error(err):
     msg = getattr(err, "description", str(err))
     return jsonify({"error": msg, "status": code}), code
 
-app.register_blueprint(matches_bp) # register matches blueprint
+
+
+app.register_blueprint(teams_bp)
+app.register_blueprint(auth_bp)  
+app.register_blueprint(matches_bp)
+app.register_blueprint(leaderboard_bp) 
+
 
 
 if __name__ == "__main__":
-    from db import init_db, DB_PATH  #initialize DB and run app if this file is run directly
+    from db import init_db, DB_PATH
     init_db()
-    print ("Database initialized at:", {DB_PATH})               
+    print("db at:", DB_PATH)
     app.run(debug=True)
 
 
