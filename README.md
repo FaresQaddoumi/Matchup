@@ -7,7 +7,7 @@
 
  ## Overview
 
-**MatchUp** is a minimal full-stack web application designed to manage friendly football tournaments.
+**MatchUp** is a minimal web application designed to manage friendly football tournaments.
 It allows users to:
 
 -Create and edit teams
@@ -18,7 +18,7 @@ It allows users to:
 
 -Sign up and log in to track progress
 
-The goal of this project is to demonstrate basic **software engineering principles**, **version control**, and **DevOps-ready architecture** using a simple, functional prototype.
+The goal of this project is to demonstrate basic **software engineering principles**, **version control**, and later on integrate **DevOps-ready architecture** using a simple, functional prototype.
 
  ## Tech Stack
 Layer	Technology
