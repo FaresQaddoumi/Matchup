@@ -2,16 +2,19 @@
 
 import os, sqlite3
 from flask import g
-from dotenv import load_dotenv # load environment variables
+from dotenv import load_dotenv 
 
 load_dotenv()
 # Always uses absolute path for DB file, based on this file's directory
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.getenv("DATABASE", os.path.join(BASE_DIR, "matchup.db"))
 
-def get_db(): # get DB connection, create if needed
+print(f"[db] Using DB_PATH: {DB_PATH}")
+
+def get_db(): # get DB connection
     if "db" not in g:
         conn = sqlite3.connect(DB_PATH)
+        conn.execute("PRAGMA foreign_keys = ON")
         conn.row_factory = sqlite3.Row 
         g.db = conn
     return g.db 
@@ -37,12 +40,14 @@ def init_db():
 
 def query_one(sql, params=()):
     cur = get_db().execute(sql, params)
-    row = cur.fetchone(); cur.close()
+    row = cur.fetchone()
+    cur.close()
     return row
 
 def query_all(sql, params=()):
     cur = get_db().execute(sql, params)
-    rows = cur.fetchall(); cur.close()
+    rows = cur.fetchall() 
+    cur.close()
     return rows
 
 def execute(sql, params=()):
