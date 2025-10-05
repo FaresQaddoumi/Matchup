@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MatchUp • Leaderboard</title>
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+  <!-- Shared header -->
+  <header class="header">
+    <nav class="nav">
+      <a class="brand" href="index.html">
+        <img src="static/img/logo.png" alt="MatchUp logo">
+        <div class="title">Match<span>Up</span></div>
+      </a>
+      <div class="menu">
+        <a href="index.html">Home</a>
+        <a href="teams.html">Teams</a>
+        <a href="matches.html">Matches</a>
+        <a class="active" href="leaderboard.html">Leaderboard</a>
+        <a href="auth.html">Auth</a>
+      </div>
+      <div class="auth-badge" id="authBadge">Not signed in</div>
+    </nav>
+  </header>
+  <div id="toast" class="toast"></div>
+
+  <main class="container">
+    <div class="card">
+      <!-- 🧩 Title + Refresh button in one flex row -->
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+        <h2 style="margin:0;">Leaderboard</h2>
+        <button class="btn btn-outline" onclick="loadLeaderboard()">Refresh</button>
+      </div>
+
+      <div class="table-wrap">
+        <table id="lbTable">
+          <thead>
+            <tr>
+              <th>#</th><th>Team</th><th>Pts</th>
+              <th>P</th><th>W</th><th>D</th><th>L</th>
+              <th>GF</th><th>GA</th><th>GD</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script src="static/js/config.js"></script>
+  <script src="static/js/utils.js"></script>
+  <script src="static/js/leaderboard.js"></script>
+</body>
+</html>
+

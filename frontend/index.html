@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MatchUp • Home</title>
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+  <!-- Shared header -->
+  <header class="header">
+    <nav class="nav">
+      <a class="brand" href="index.html">
+        <img src="static/img/logo.png" alt="MatchUp logo">
+        <div class="title">Match<span>Up</span></div>
+      </a>
+      <div class="menu">
+        <a class="active" href="index.html">Home</a>
+        <a href="teams.html">Teams</a>
+        <a href="matches.html">Matches</a>
+        <a href="leaderboard.html">Leaderboard</a>
+        <a href="auth.html">Authentication</a>
+      </div>
+      <div class="auth-badge" id="authBadge">Not signed in</div>
+    </nav>
+  </header>
+  <div id="toast" class="toast"></div>
+
+  <main class="container">
+    <div class="card hero">
+      <img src="static/img/logo.png" alt="MatchUp logo">
+      <div>
+        <h1>Welcome to MatchUp</h1>
+        <p> An all in one app for creating teams, matches, and seeing leaderboard standings!.</p>
+        <p>
+          <a class="btn btn-primary" href="teams.html">Create a Team</a>
+          <a class="btn btn-outline" href="matches.html">Add Match Result</a>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <script src="static/js/config.js"></script>
+  <script src="static/js/utils.js"></script>
+</body>
+</html>

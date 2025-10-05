@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MatchUp • Teams</title>
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+  <!-- Shared header -->
+  <header class="header">
+    <nav class="nav">
+      <a class="brand" href="index.html">
+        <img src="static/img/logo.png" alt="MatchUp logo">
+        <div class="title">Match<span>Up</span></div>
+      </a>
+      <div class="menu">
+        <a href="index.html">Home</a>
+        <a class="active" href="teams.html">Teams</a>
+        <a href="matches.html">Matches</a>
+        <a href="leaderboard.html">Leaderboard</a>
+        <a href="auth.html">Auth</a>
+      </div>
+      <div class="auth-badge" id="authBadge">Not signed in</div>
+    </nav>
+  </header>
+  <div id="toast" class="toast"></div>
+
+  <main class="container">
+    <div class="card" style="margin-bottom:18px">
+      <h2 style="margin:0 0 8px 0">Create a Team</h2>
+      <form id="teamForm">
+        <div>
+          <label>Team name</label>
+          <input class="input" type="text" name="name" placeholder="e.g., Madrid Rockets" required>
+        </div>
+        <button class="btn btn-primary" type="submit">Add Team</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2 style="margin:0 0 8px 0">Teams</h2>
+      <div class="table-wrap">
+        <table id="teamsTable">
+          <thead>
+            <tr><th>ID</th><th>Name</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script src="static/js/config.js"></script>
+  <script src="static/js/utils.js"></script>
+  <script src="static/js/teams.js"></script>
+</body>
+</html>

@@ -8,9 +8,10 @@ from backend.matches import matches_bp
 from backend.leaderboard import leaderboard_bp
 from backend.auth import auth_bp
 
-app = Flask(__name__)
 from flask_cors import CORS
-CORS(app)  
+
+app = Flask(__name__)
+CORS(app, supports_credentials=True, resources={r"/*": {"origins": "http://127.0.0.1:5500"}})
 
 
 
