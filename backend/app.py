@@ -1,4 +1,4 @@
-
+import os
 print("Starting app.py") # debug
 
 from flask import Flask, jsonify
@@ -57,6 +57,7 @@ if __name__ == "__main__":
     from backend.db import init_db, DB_PATH
     init_db()
     print("db at:", DB_PATH)
-    app.run(debug=True)
+    port = int(os.getenv("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)
 
 
