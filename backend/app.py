@@ -1,7 +1,7 @@
 import os
 print("Starting app.py") # debug
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, Response
 from backend.db import get_db, close_db, init_db
 from backend.teams import teams_bp
 from backend.matches import matches_bp
@@ -58,6 +58,25 @@ def metrics():
         "teams_count": teams_count,
         "matches_count": matches_count,
     }), 200
+
+@app.route("/metrics_prom", methods=["GET"])
+def metrics_prom():
+    db = get_db()
+    teams_count = db.execute("SELECT COUNT(*) FROM teams").fetchone()[0]
+    matches_count = db.execute("SELECT COUNT(*) FROM matches").fetchone()[0]
+
+    lines = [
+        "# HELP matchup_teams_count Number of teams registered in Matchup.",
+        "# TYPE matchup_teams_count gauge",
+        f"matchup_teams_count {teams_count}",
+        "# HELP matchup_matches_count Number of matches stored in Matchup.",
+        "# TYPE matchup_matches_count gauge",
+        f"matchup_matches_count {matches_count}",
+    ]
+    body = "\n".join(lines) + "\n"
+
+    return Response(body, mimetype="text/plain; version=0.0.4; charset=utf-8")
+
 
 
 
