@@ -29,6 +29,38 @@ def _close_db(exception):
 def home():
     return "Matchup backend is running :)"
 
+@app.route("/health", methods=["GET"])
+def health():
+    try:
+        db = get_db()
+        
+        db.execute("SELECT 1")
+        return jsonify({
+            "status": "ok",
+            "db": "ok"
+        }), 200
+    except Exception as e:
+       
+        return jsonify({
+            "status": "error",
+            "db": "error",
+            "details": str(e)
+        }), 500
+    
+@app.route("/metrics", methods=["GET"])
+def metrics():
+    db = get_db()
+    # Adjust table names if yours are different, but they’re very likely "teams" and "matches"
+    teams_count = db.execute("SELECT COUNT(*) FROM teams").fetchone()[0]
+    matches_count = db.execute("SELECT COUNT(*) FROM matches").fetchone()[0]
+
+    return jsonify({
+        "teams_count": teams_count,
+        "matches_count": matches_count,
+    }), 200
+
+
+
 
 @app.get("/ping")
 def ping():
