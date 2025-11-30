@@ -1,94 +1,68 @@
 # MatchUp — Football Tournament Tracker
-### Software Development & DevOps — Individual Assignment 1
+### Software Development & DevOps — Individual Assignment 2
 
-**Author:** Fares Qaddoumi
-**Course:** Software Development and DevOps
-**Institution:** IE University
+**Author:** Fares Qaddoumi  
+**Institution:** IE University  
+**Course:** Software Development & DevOps  
 
- ## Overview
+---
 
-**MatchUp** is a minimal web application designed to manage friendly football tournaments.
-It allows users to:
+##  Overview
 
--Create and edit teams
+**MatchUp** is a lightweight football tournament tracker used to manage friendly competitions.  
 
--Record match results
+The application supports:
 
--View an automatically updated leaderboard
+- Creating and editing teams  
+- Recording match results  
+- Automatic leaderboard updates  
+- User signup and login  
+- Health and monitoring endpoints  
+- Containerized backend  
+- Automated CI/CD pipeline  
+- Cloud deployment on Render  
+- Prometheus metrics for monitoring  
 
--Sign up and log in to track progress
+For Assignment 2, the system was improved with:
 
-The goal of this project is to demonstrate basic **software engineering principles**, **version control**, and later on integrate **DevOps-ready architecture** using a simple, functional prototype.
+- Refactoring and cleanup  
+- Pytest test suite with 90%+ coverage  
+- CI pipeline running tests, coverage, and Docker builds  
+- Docker image for local and cloud deployment  
+- Prometheus metrics and health checks  
+- Auto‑deployments from `main`  
 
- ## Tech Stack
-Layer	Technology
-Backend	Python (Flask)
-Database	SQLite (via Python’s sqlite3)
-Frontend	HTML, CSS, JavaScript (Vanilla JS + Fetch API)
-Server	Flask development server + Python http.server
-Version Control	Git & GitHub
- ## Setup Instructions
-### (1) Prerequisites
+---
 
--Make sure you have Python 3.10+ installed.
-You can verify with:
+##  Tech Stack
 
-**python --version**
+| Component        | Technology              |
+|------------------|-------------------------|
+| Backend          | Python (Flask)          |
+| Database         | SQLite                  |
+| Frontend         | HTML, CSS, JavaScript   |
+| Testing          | Pytest + Coverage       |
+| Continuous Integration | GitHub Actions      |
+| Continuous Deployment | Render (Docker‑based) |
+| Monitoring       | Prometheus             |
+| Version Control  | Git & GitHub           |
+| Containerization | Docker                 |
 
-### (2) Clone the Repository
-git clone <your-repo-url>
-cd matchup
+---
 
-### (3️) Install Dependencies
+##  Project Structure
 
-Navigate to the backend folder and install required packages:
-
-**cd backend**
-**pip install -r requirements.txt**
-
-### (4) Initialize the Database
-
-Before running the app, initialize the SQLite database:
-
-**python -m backend.db**
-
-
-(This creates the necessary tables if they don't already exist.)
-
-### (5️) Run the Backend Server
-
-From the project root:
-
-**flask --app backend/app.py --debug run**
-
-
-The backend should now be live on
- http://127.0.0.1:5000
-
-### (6️) Run the Frontend
-
-Open a new terminal window and start the local static server:
-
-**cd frontend**
-**python -m http.server 5500**
-
-
-Then open
- http://127.0.0.1:5500/
-
-in your browser to access the web app.
-
- Project Structure
 matchup/
 │
 ├── backend/
-│   ├── app.py              # Main Flask app
-│   ├── db.py               # Database setup and helpers
-│   ├── auth.py             # Authentication routes
-│   ├── matches.py          # Match-related routes
-│   ├── teams.py            # Team management routes
-│   ├── leaderboard.py      # Leaderboard logic
-│   ├── tests/              # Unit tests
+│   ├── app.py               # Flask app entrypoint
+│   ├── db.py                # Database initialization and helpers
+│   ├── auth.py              # Authentication routes
+│   ├── teams.py             # Team management routes
+│   ├── matches.py           # Match‑related routes
+│   ├── leaderboard.py       # Leaderboard logic
+│   ├── metrics.py           # Prometheus metrics setup
+│   ├── tests/               # Pytest test suite
 │   └── __init__.py
 │
 ├── frontend/
@@ -98,49 +72,212 @@ matchup/
 │   ├── leaderboard.html
 │   ├── static/
 │   │   ├── css/
-│   │   │   └── styles.css
 │   │   └── js/
-│   │       ├── main.js
-│   │       ├── matches.js
-│   │       ├── teams.js
-│   │       └── leaderboard.js
 │
-├── assets/
-│   └── logo.png
-│
-├── requirements.txt
-├── README.md
-└── .gitignore
+├── Dockerfile               # Backend Docker image definition
+├── docker-compose.yml       # (Optional) Local multi‑service setup
+├── prometheus.yml           # Local Prometheus configuration
+├── requirements.txt         # Python dependencies
+├── .github/
+│   └── workflows/
+│       └── ci.yml           # CI pipeline (tests + coverage + build)
+└── README.md
+ 
+ **Running the Backend Locally**
+## 1  . Install Dependencies
+From the project root:
 
- ### SDLC Model
+bash
+Copy code
+cd backend
+pip install -r requirements.txt
+## 2. Initialize the SQLite Database
+bash
+Copy code
+python -m backend.db
+This creates the necessary tables if they don’t already exist.
 
-This project follows the Incremental Development Model — each functional component (teams, matches, authentication, leaderboard) was implemented and tested separately before integration.
-This approach allows:
+## 3. Start the Backend Server
+bash
+Copy code
+python -m backend.app
+The backend will run at:
 
--Early testing and debugging
+http://127.0.0.1:5000
 
--Easy feature extension
+ Running the Frontend
+From the project root:
 
--Clear version control commits per feature
+bash
+Copy code
+cd frontend
+python -m http.server 5500
+Then open:
 
- ### Future Improvements
+http://127.0.0.1:5500
 
-For Assignment 2 (DevOps pipeline), MatchUp could be scaled by:
+in your web browser.
 
--Adding Docker containers for frontend/backend separation
+ ## Testing and Coverage
+All tests are located inside:
 
--Using GitHub Actions for automated testing and deployment
+bash
+Copy code
+backend/tests/
+Run all tests
+bash
+Copy code
+cd backend
+pytest
+Run tests with coverage
+bash
+Copy code
+pytest --cov=backend --cov-report=term-missing
+Local coverage: around 90 %
 
--Deploying to a cloud provider 
+CI coverage threshold: 70 % (the pipeline fails if below this threshold)
 
- -Version Control
+## Generate HTML coverage report
+bash
+Copy code
+pytest --cov=backend --cov-report=html
+This will create an htmlcov/ directory containing a browsable coverage report.
 
- Example Features:
+**Docker Usage**
+Build the image
+From the project root:
 
-/teams — Add, edit, and list teams
+bash
+Copy code
+docker build -t matchup-backend .
+Run the container
+bash
+Copy code
+docker run -p 5000:5000 matchup-backend
+The backend will be available at:
 
-/matches — Record and view match results
+http://localhost:5000
 
-/leaderboard — Displays team rankings based on points
+ ## CI/CD Pipeline
+ Continuous Integration (GitHub Actions)
+File:
 
-/auth — Sign up, log in, and manage user sessions
+bash
+Copy code
+.github/workflows/ci.yml
+The CI pipeline:
+
+Checks out the repository
+
+Sets up Python
+
+Installs dependencies
+
+Runs tests
+
+Measures coverage
+
+Fails the pipeline if:
+
+Any test fails, or
+
+Coverage is below 70 %
+
+Builds the Docker image
+
+ **Continuous Deployment (Render)**
+The app is deployed to Render using the Dockerfile.
+
+Auto‑deploy is enabled only for the main branch.
+
+Every successful push to main triggers a new deploy.
+
+The live production URL is:
+
+https://matchup-7p8i.onrender.com
+
+ **Monitoring and Health Checks**
+Health Endpoint
+bash
+Copy code
+/health
+Returns a basic JSON status indicating whether the application is up.
+
+Prometheus Metrics Endpoint
+bash
+Copy code
+/metrics_prom
+Exports metrics such as:
+
+Total request count
+
+Error count
+
+Request latency (histograms)
+
+Per‑route statistics
+
+**Local Prometheus Setup**
+A minimal prometheus.yml is provided in the repository. Example scrape configuration:
+
+yaml
+Copy code
+scrape_configs:
+  - job_name: "matchup"
+    static_configs:
+      - targets:
+          - "host.docker.internal:5000"
+You can run Prometheus locally with:
+
+bash
+Copy code
+docker run -p 9090:9090 \
+  -v ./prometheus.yml:/etc/prometheus/prometheus.yml \
+  prom/prometheus
+Prometheus UI will be available at:
+
+http://localhost:9090
+
+ **SDLC Model**
+This project uses the Incremental Development Model.
+
+Each feature (teams, matches, authentication, leaderboard, monitoring, CI/CD) was:
+
+Designed
+
+Implemented
+
+Tested locally
+
+Integrated into the main codebase
+
+ Advantages of this model for MatchUp: 
+
+Early discovery of bugs
+
+Continuous integration of working increments
+
+Easier rollback and refactoring
+
+Natural alignment with DevOps practices (small, frequent, testable changes)
+
+ **Future Improvements**
+Potential next steps for MatchUp:
+
+Add frontend CI (linting, formatting, and basic UI tests)
+
+Integrate Grafana dashboards on top of Prometheus metrics
+
+Migrate from SQLite to PostgreSQL for production use
+
+Add caching (for example, Redis) for leaderboard and heavy queries
+
+Implement rate limiting and stronger input validation
+
+Extend authentication with user roles (e.g., admin, standard user)
+
+Add API documentation (e.g., using Swagger or OpenAPI)
+
+
+
+
