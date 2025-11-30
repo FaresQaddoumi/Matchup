@@ -88,30 +88,30 @@ matchup/
 From the project root:
 
 bash
-Copy code
-cd backend
-pip install -r requirements.txt
+**Copy code**
+- cd backend
+- pip install -r requirements.txt
 ## 2. Initialize the SQLite Database
 bash
-Copy code
-python -m backend.db
+**Copy code**
+- python -m backend.db
 This creates the necessary tables if they don’t already exist.
 
 ## 3. Start the Backend Server
 bash
-Copy code
-python -m backend.app
-The backend will run at:
+**Copy code**
+- python -m backend.app
+- The backend will run at:
 
 http://127.0.0.1:5000
 
- Running the Frontend
-From the project root:
+ **Running the Frontend**
+- From the project root:
 
 bash
-Copy code
-cd frontend
-python -m http.server 5500
+**Copy code**
+- cd frontend
+- python -m http.server 5500
 Then open:
 
 http://127.0.0.1:5500
@@ -123,24 +123,24 @@ All tests are located inside:
 
 bash
 Copy code
-backend/tests/
-Run all tests
+- backend/tests/
+**Run all tests**
 bash
 Copy code
-cd backend
-pytest
-Run tests with coverage
+- cd backend
+- pytest
+**Run tests with coverage**
 bash
 Copy code
-pytest --cov=backend --cov-report=term-missing
-Local coverage: around 90 %
+- pytest --cov=backend --cov-report=term-missing
+**Local coverage: around 90 %**
 
 CI coverage threshold: 70 % (the pipeline fails if below this threshold)
 
 ## Generate HTML coverage report
 bash
-Copy code
-pytest --cov=backend --cov-report=html
+**Copy code**
+- pytest --cov=backend --cov-report=html
 This will create an htmlcov/ directory containing a browsable coverage report.
 
 **Docker Usage**
@@ -148,12 +148,12 @@ Build the image
 From the project root:
 
 bash
-Copy code
-docker build -t matchup-backend .
-Run the container
+**Copy code**
+- docker build -t matchup-backend .
+**Run the container**
 bash
 Copy code
-docker run -p 5000:5000 matchup-backend
+- docker run -p 5000:5000 matchup-backend
 The backend will be available at:
 
 http://localhost:5000
@@ -164,7 +164,7 @@ File:
 
 bash
 Copy code
-.github/workflows/ci.yml
+- .github/workflows/ci.yml
 The CI pipeline:
 
 Checks out the repository
@@ -199,14 +199,14 @@ https://matchup-7p8i.onrender.com
  **Monitoring and Health Checks**
 Health Endpoint
 bash
-Copy code
-/health
+**Copy code**
+- /health
 Returns a basic JSON status indicating whether the application is up.
 
-Prometheus Metrics Endpoint
+**Prometheus Metrics Endpoint**
 bash
 Copy code
-/metrics_prom
+- /metrics_prom
 Exports metrics such as:
 
 Total request count
@@ -220,8 +220,8 @@ Per‑route statistics
 **Local Prometheus Setup**
 A minimal prometheus.yml is provided in the repository. Example scrape configuration:
 
-yaml
-Copy code
+**yaml**
+**Copy code**
 scrape_configs:
   - job_name: "matchup"
     static_configs:
@@ -231,10 +231,10 @@ You can run Prometheus locally with:
 
 bash
 Copy code
-docker run -p 9090:9090 \
+- docker run -p 9090:9090 \
   -v ./prometheus.yml:/etc/prometheus/prometheus.yml \
   prom/prometheus
-Prometheus UI will be available at:
+**Prometheus UI will be available at:**
 
 http://localhost:9090
 
